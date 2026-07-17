@@ -1,0 +1,23 @@
+Junit and unit testing
+
+
+these methods are specified in your testing class
+
+@Before // this is imported from org.junit.Before;
+public void setUp() throws Exception{
+	// runs before each test to initialize variables and data
+}
+
+@Beforeclass
+public void setUpClass() // runs only once before the class initialize objects
+
+@Test // testing methods
+public void testGet()
+
+assertEqual(message, expected, the method to be tested);
+fail(message) // used inside the try statement to refer that an exception was expected but failed
+
+@After
+teardown() // destroy every thing created in test (database for example)
+
+
