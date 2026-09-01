@@ -1,0 +1,20 @@
+# second deletion algorithm
+
+1- find the node which you want to delete.
+2- does it have a right node?
+    yes->does it have a left node?
+        yes-> 
+            3- find the smallest value in that right branch (go left until you hit null).
+            4- override the value of the node that should be deleted with that value.
+            5- delete the node with that value.
+            
+        no->
+            3- connect that right node to the parent of the node which is going to be deleted, garbage collector should clean it.
+        
+    no-> does it have a left node?
+        yes-> connect that left node to the parent of the node which is going to be deleted, garbage collector should clean it.
+        no-> delete it's parent's connection and the garbage collector will clean it.
+        
+        
+        
+if the deleted node is the root??

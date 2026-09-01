@@ -1,0 +1,69 @@
+# first deletion algorithm
+
+less efficent as it makes longer branches.
+
+1- find the node which you want to delete.
+2- does it have right branch?
+    yes-> does it have a left branch?
+
+        yes ->
+            3- find the smallest value in that right branch (go left until you hit null).
+            4- connect the deleted branch's left node to that smallest value (to it's left).
+            5- connect the right branch to the deleted node's parent & clean the deleted node (garbage collector).
+
+        no->
+            3- connect that right node to the parent of the deleted node and clean the deleted node.
+
+
+    no-> does it have left branch?
+
+        yes->
+            3- connect that left node to the parent of the deleted node and clean the deleted node.
+
+        no->
+            3- remove parent connection and leave garbage collector to handle it.
+
+            
+## Notice: doesn't handle if the node was the root.
+
+	public TreeNode<E> deleteNode1(TreeNode<E> node){
+		if(node.getRightNode() != null) {
+			if(node.getLeftNode() != null) {
+				// finding the smallest value in the right branch
+				TreeNode<E> smallest = node.getRightNode();
+				while(smallest.getLeftNode() != null)
+					smallest = smallest.getLeftNode();
+				smallest.setLeftNode(node.getLeftNode());
+			}
+
+			/* connect the right branch to the parent
+			 * find out if the node is right or left to the parent */
+			if(node.getParent().getRightNode() == node) {
+				node.getParent().setRightNode(node.getRightNode());
+			} else if(node.getParent().getLeftNode() == node) {
+				node.getParent().setLeftNode(node.getRightNode());
+			}
+			
+			
+		} else if(node.getLeftNode() != null) { /* if the node only has left branch*/
+
+			if(node.getParent().getRightNode() == node) {
+				node.getParent().setRightNode(node.getLeftNode());
+			} else if(node.getParent().getLeftNode() == node) {
+				node.getParent().setLeftNode(node.getLeftNode());
+			}
+			
+		} else {
+		// just remove the connection.
+			if(node.getParent().getRightNode() == node) {
+				node.getParent().setRightNode(null);
+			} else if(node.getParent().getLeftNode() == node) {
+				node.getParent().setLeftNode(null);
+			}
+		}
+	
+//		node.setRightNode(null);
+//		node.setLeftNode(null);
+		return node; // if not assigned garbage collector should clean it.
+		
+	}
