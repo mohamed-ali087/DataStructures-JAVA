@@ -1,6 +1,6 @@
 # first deletion algorithm
 
-less efficent as it makes longer branches.
+less efficent as it makes branches with more height.
 
 1- find the node which you want to delete.
 2- does it have right branch?

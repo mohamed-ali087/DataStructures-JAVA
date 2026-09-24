@@ -53,6 +53,9 @@ public class BST<E extends Comparable<? super E> > extends BinaryTree {
 	public TreeNode<E> insert(E data){
 		TreeNode<E> newNode;
 		TreeNode<E> parentNode = findParent(data);
+		if(parentNode == null) {
+			System.err.println("bst.insert: couldn't find parent for the data.");
+		}
 		int comp = data.compareTo(parentNode.getData());
 
 		if(comp < 0 && parentNode.getLeftNode()==null) {
@@ -62,6 +65,7 @@ public class BST<E extends Comparable<? super E> > extends BinaryTree {
 		} else {
 			return null;
 		}
+		newNode.setParent(parentNode);
 		
 		return newNode;
 	}
@@ -70,7 +74,7 @@ public class BST<E extends Comparable<? super E> > extends BinaryTree {
 
 		if(node == null) {
 			return false;
-//			throw new NullPointerException();
+//			throw new NullPointerException(); #TODO: why not??
 		}
 
 		if(node == root) {
@@ -79,7 +83,19 @@ public class BST<E extends Comparable<? super E> > extends BinaryTree {
 			 * a better approach is to decide which branch would replace the root depending on it's size (depth). */
 			
 			/* find the smallest value node in the right branch */
-			TreeNode<E> smallest = node.getRightNode();
+			/* #NOTICE: the root may not have a right node */
+			TreeNode<E> smallest;
+
+			if(node.getRightNode() != null) {
+				smallest = node.getRightNode();
+			} else {
+				if(node.getLeftNode() == null) {
+					node.data = null;
+					return true;
+				} else {
+					smallest = node;
+				}
+			}
 			while(smallest.getLeftNode() != null)
 				smallest = smallest.getLeftNode();
 			
@@ -136,5 +152,34 @@ public class BST<E extends Comparable<? super E> > extends BinaryTree {
 	public boolean delete(E data){
 		TreeNode<E> node = find(data);
 		return deleteNode(node);
+	}
+	
+	/* printing tree in traversal. */
+	@SuppressWarnings("unchecked")
+	public void printPostOrder() {
+		postOrderTraverse(root, node ->{
+			System.out.print(node.getData() + "-");
+		});
+	}
+
+	@SuppressWarnings("unchecked")
+	public void printPreOrder() {
+		preOrderTraverse(root, node ->{
+			System.out.print(node.getData() + "-");
+		});
+	}
+
+	@SuppressWarnings("unchecked")
+	public void printInOrder() {
+		inOrderTraverse(root, node ->{
+			System.out.print(node.getData() + "-");
+		});
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void printLevelOrder() {
+		levelOrderTraverse(root, node ->{
+			System.out.print(node.getData() + "-");
+		});
 	}
 }

@@ -104,4 +104,8 @@ public class TestingMyLinkedList {
 
 		
 	}
+
+	public static void main(String[] args) {
+
+	}
 }

@@ -68,5 +68,11 @@ public class TreeNode<E>{
 		this.rightNode = rightNode;
 	}
 
+	@Override
+	public String toString() {
+//		TreeNode left = this.leftNode;
+//		TreeNode right = this.rightNode;
+		return ((this.leftNode!=null)? this.leftNode.data : "") +"<-" + this.data + "->" + ((this.rightNode!=null)? this.rightNode.data : "");
+	}
 	
 }
